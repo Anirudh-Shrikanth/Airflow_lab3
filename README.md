@@ -42,7 +42,7 @@ This will:
 If you modify dependencies, update the following line in `docker-compose.yaml`:
 
 ```yaml
-_PIP_ADDITIONAL_REQUIREMENTS: pandas,scikit-learn,kneed
+_PIP_ADDITIONAL_REQUIREMENTS: ${_PIP_ADDITIONAL_REQUIREMENTS:- pandas scikit-learn kneed }
 ```
 
 Then rebuild the containers:
@@ -57,8 +57,8 @@ docker-compose up --build -d
 ### Access the Airflow UI
 
 Open [http://localhost:8080](http://localhost:8080) in your browser.  
-- **Username:** airflow  
-- **Password:** airflow  
+- **Username:** airflow2  
+- **Password:** airflow2 
 
 ---
 
@@ -77,5 +77,5 @@ Open [http://localhost:8080](http://localhost:8080) in your browser.
 | `agglo_model_task` | Trains an Agglomerative Clustering model |
 | `evaluate_models_task` | Compares models via S
 
-![Description of image](screenshots/homepage.png)
-![Description of image](screenshots/homepage.png)
+![Description of image](screenshots/s1.png)
+![Description of image](screenshots/s2.png)
