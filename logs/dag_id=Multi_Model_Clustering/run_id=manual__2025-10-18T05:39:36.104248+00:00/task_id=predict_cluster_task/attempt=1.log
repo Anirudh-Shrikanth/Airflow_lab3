@@ -1,0 +1,24 @@
+[2025-10-18T05:39:57.083+0000] {taskinstance.py:1083} INFO - Dependencies all met for <TaskInstance: Multi_Model_Clustering.predict_cluster_task manual__2025-10-18T05:39:36.104248+00:00 [queued]>
+[2025-10-18T05:39:57.089+0000] {taskinstance.py:1083} INFO - Dependencies all met for <TaskInstance: Multi_Model_Clustering.predict_cluster_task manual__2025-10-18T05:39:36.104248+00:00 [queued]>
+[2025-10-18T05:39:57.089+0000] {taskinstance.py:1279} INFO - 
+--------------------------------------------------------------------------------
+[2025-10-18T05:39:57.089+0000] {taskinstance.py:1280} INFO - Starting attempt 1 of 1
+[2025-10-18T05:39:57.089+0000] {taskinstance.py:1281} INFO - 
+--------------------------------------------------------------------------------
+[2025-10-18T05:39:57.097+0000] {taskinstance.py:1300} INFO - Executing <Task(PythonOperator): predict_cluster_task> on 2025-10-18 05:39:36.104248+00:00
+[2025-10-18T05:39:57.109+0000] {standard_task_runner.py:55} INFO - Started process 12029 to run task
+[2025-10-18T05:39:57.113+0000] {standard_task_runner.py:82} INFO - Running: ['***', 'tasks', 'run', 'Multi_Model_Clustering', 'predict_cluster_task', 'manual__2025-10-18T05:39:36.104248+00:00', '--job-id', '19', '--raw', '--subdir', 'DAGS_FOLDER/***.py', '--cfg-path', '/tmp/tmpclqo_s8h']
+[2025-10-18T05:39:57.116+0000] {standard_task_runner.py:83} INFO - Job 19: Subtask predict_cluster_task
+[2025-10-18T05:39:57.175+0000] {task_command.py:388} INFO - Running <TaskInstance: Multi_Model_Clustering.predict_cluster_task manual__2025-10-18T05:39:36.104248+00:00 [running]> on host bc108be0edb8
+[2025-10-18T05:39:57.229+0000] {taskinstance.py:1509} INFO - Exporting the following env vars:
+AIRFLOW_CTX_DAG_OWNER=your_name
+AIRFLOW_CTX_DAG_ID=Multi_Model_Clustering
+AIRFLOW_CTX_TASK_ID=predict_cluster_task
+AIRFLOW_CTX_EXECUTION_DATE=2025-10-18T05:39:36.104248+00:00
+AIRFLOW_CTX_TRY_NUMBER=1
+AIRFLOW_CTX_DAG_RUN_ID=manual__2025-10-18T05:39:36.104248+00:00
+[2025-10-18T05:39:57.243+0000] {logging_mixin.py:137} INFO - Predicted cluster(s) for test data: [-1]
+[2025-10-18T05:39:57.243+0000] {python.py:177} INFO - Done. Returned value was: [-1]
+[2025-10-18T05:39:57.273+0000] {taskinstance.py:1323} INFO - Marking task as SUCCESS. dag_id=Multi_Model_Clustering, task_id=predict_cluster_task, execution_date=20251018T053936, start_date=20251018T053957, end_date=20251018T053957
+[2025-10-18T05:39:57.342+0000] {local_task_job.py:208} INFO - Task exited with return code 0
+[2025-10-18T05:39:57.359+0000] {taskinstance.py:2578} INFO - 0 downstream tasks scheduled from follow-on schedule check
