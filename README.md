@@ -5,7 +5,7 @@ A simple Apache Airflow pipeline that trains multiple machine learning models on
 ## Overview
 
 This project demonstrates a complete MLOps pipeline using Airflow for orchestration:
-- Loads Wine dataset (178 samples, 13 features, 3 classes)
+- Loads Wine dataset
 - Preprocesses data with StandardScaler
 - Trains 3 models in parallel: Logistic Regression, Decision Tree, and KNN
 - Evaluates and selects best model based on accuracy
