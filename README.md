@@ -25,7 +25,7 @@ _PIP_ADDITIONAL_REQUIREMENTS: ${_PIP_ADDITIONAL_REQUIREMENTS:- pandas scikit-lea
 
 2. **Access UI**
    - Navigate to `http://localhost:8080`
-   - Default credentials: admin/admin
+   - Default credentials: airflow2/airflow2
    - Enable and trigger the `wine_classification` DAG
 
 ## Pipeline Flow
@@ -57,11 +57,23 @@ After successful execution:
 ```json
 {
   "best_model": "Logistic",
-  "accuracy": 0.9815,
+  "accuracy": 0.9814814814814815,
   "all_results": [
-    {"model": "Logistic", "accuracy": 0.9815, "path": "..."},
-    {"model": "DecisionTree", "accuracy": 0.9259, "path": "..."},
-    {"model": "KNN", "accuracy": 0.9630, "path": "..."}
+    {
+      "model": "Logistic",
+      "accuracy": 0.9814814814814815,
+      "path": "/opt/airflow/dags/model/logistic.pkl"
+    },
+    {
+      "model": "DecisionTree",
+      "accuracy": 0.9629629629629629,
+      "path": "/opt/airflow/dags/model/tree.pkl"
+    },
+    {
+      "model": "KNN",
+      "accuracy": 0.9629629629629629,
+      "path": "/opt/airflow/dags/model/knn.pkl"
+    }
   ]
 }
 ```
