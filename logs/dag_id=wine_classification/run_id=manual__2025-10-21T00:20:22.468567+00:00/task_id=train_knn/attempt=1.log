@@ -1,0 +1,23 @@
+[2025-10-21T00:20:26.572+0000] {taskinstance.py:1083} INFO - Dependencies all met for <TaskInstance: wine_classification.train_knn manual__2025-10-21T00:20:22.468567+00:00 [queued]>
+[2025-10-21T00:20:26.583+0000] {taskinstance.py:1083} INFO - Dependencies all met for <TaskInstance: wine_classification.train_knn manual__2025-10-21T00:20:22.468567+00:00 [queued]>
+[2025-10-21T00:20:26.586+0000] {taskinstance.py:1279} INFO - 
+--------------------------------------------------------------------------------
+[2025-10-21T00:20:26.587+0000] {taskinstance.py:1280} INFO - Starting attempt 1 of 2
+[2025-10-21T00:20:26.587+0000] {taskinstance.py:1281} INFO - 
+--------------------------------------------------------------------------------
+[2025-10-21T00:20:26.606+0000] {taskinstance.py:1300} INFO - Executing <Task(PythonOperator): train_knn> on 2025-10-21 00:20:22.468567+00:00
+[2025-10-21T00:20:26.613+0000] {standard_task_runner.py:55} INFO - Started process 698 to run task
+[2025-10-21T00:20:26.622+0000] {standard_task_runner.py:82} INFO - Running: ['***', 'tasks', 'run', 'wine_classification', 'train_knn', 'manual__2025-10-21T00:20:22.468567+00:00', '--job-id', '26', '--raw', '--subdir', 'DAGS_FOLDER/***.py', '--cfg-path', '/tmp/tmp6khd0wks']
+[2025-10-21T00:20:26.625+0000] {standard_task_runner.py:83} INFO - Job 26: Subtask train_knn
+[2025-10-21T00:20:26.703+0000] {task_command.py:388} INFO - Running <TaskInstance: wine_classification.train_knn manual__2025-10-21T00:20:22.468567+00:00 [running]> on host bc108be0edb8
+[2025-10-21T00:20:26.809+0000] {taskinstance.py:1509} INFO - Exporting the following env vars:
+AIRFLOW_CTX_DAG_OWNER=***
+AIRFLOW_CTX_DAG_ID=wine_classification
+AIRFLOW_CTX_TASK_ID=train_knn
+AIRFLOW_CTX_EXECUTION_DATE=2025-10-21T00:20:22.468567+00:00
+AIRFLOW_CTX_TRY_NUMBER=1
+AIRFLOW_CTX_DAG_RUN_ID=manual__2025-10-21T00:20:22.468567+00:00
+[2025-10-21T00:20:26.819+0000] {python.py:177} INFO - Done. Returned value was: b'\x80\x03}q\x00(X\x05\x00\x00\x00modelq\x01X\x03\x00\x00\x00KNNq\x02X\x08\x00\x00\x00accuracyq\x03cnumpy.core.multiarray\nscalar\nq\x04cnumpy\ndtype\nq\x05X\x02\x00\x00\x00f8q\x06\x89\x88\x87q\x07Rq\x08(K\x03X\x01\x00\x00\x00<q\tNNNJ\xff\xff\xff\xffJ\xff\xff\xff\xffK\x00tq\nbC\x08\t\xed%\xb4\x97\xd0\xee?q\x0b\x86q\x0cRq\rX\x04\x00\x00\x00pathq\x0eX\x1f\x00\x00\x00/opt/airflow/dags/model/knn.pklq\x0fu.'
+[2025-10-21T00:20:26.851+0000] {taskinstance.py:1323} INFO - Marking task as SUCCESS. dag_id=wine_classification, task_id=train_knn, execution_date=20251021T002022, start_date=20251021T002026, end_date=20251021T002026
+[2025-10-21T00:20:26.885+0000] {local_task_job.py:208} INFO - Task exited with return code 0
+[2025-10-21T00:20:26.912+0000] {taskinstance.py:2578} INFO - 0 downstream tasks scheduled from follow-on schedule check

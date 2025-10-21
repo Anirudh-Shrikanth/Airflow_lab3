@@ -1,1 +1,21 @@
-{"best_model": "DBSCAN", "silhouette": 0.7902577538300242}
+{
+  "best_model": "Logistic",
+  "accuracy": 0.9814814814814815,
+  "all_results": [
+    {
+      "model": "Logistic",
+      "accuracy": 0.9814814814814815,
+      "path": "/opt/airflow/dags/model/logistic.pkl"
+    },
+    {
+      "model": "DecisionTree",
+      "accuracy": 0.9629629629629629,
+      "path": "/opt/airflow/dags/model/tree.pkl"
+    },
+    {
+      "model": "KNN",
+      "accuracy": 0.9629629629629629,
+      "path": "/opt/airflow/dags/model/knn.pkl"
+    }
+  ]
+}

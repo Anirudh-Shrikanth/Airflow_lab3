@@ -1,81 +1,124 @@
-This repo contains all materials for Lab1 of Airflow_Labs.
+# Wine Classification Pipeline
 
-The following are my changes:
-# Multi-Model Clustering with Apache Airflow
+A simple Apache Airflow pipeline that trains multiple machine learning models on the Wine dataset and selects the best performing model.
 
-This project demonstrates an **machine learning pipeline** orchestrated using **Apache Airflow**.  
-It trains multiple clustering models — **KMeans**, **DBSCAN**, and **Agglomerative Clustering** — on a credit card dataset, evaluates their performance, selects the best model automatically, and uses it to predict clusters for test data.
+## Overview
 
-## Features
+This project demonstrates a complete MLOps pipeline using Airflow for orchestration:
+- Loads Wine dataset (178 samples, 13 features, 3 classes)
+- Preprocesses data with StandardScaler
+- Trains 3 models in parallel: Logistic Regression, Decision Tree, and KNN
+- Evaluates and selects best model based on accuracy
+- Makes predictions on test data
 
-- **Automated data preprocessing** using `MinMaxScaler`
-- **Multiple clustering models**:
-  - KMeans
-  - DBSCAN
-  - Agglomerative Clustering
-- **Automatic model selection** using Silhouette Score
-- **Cluster prediction** on new (test) data
-- **Full orchestration** through Apache Airflow DAGs
-- **Modular structure** — easy to extend or replace models
-
----
-
-## Setup Instructions
-
-### Prerequisites
-- **Docker** and **Docker Compose** installed on your system
-- Python is **not required locally**, as all dependencies are handled within Docker
-
----
-
-### Start Airflow
-Run the following from the project root:
-
+## Requirements
 ```bash
-docker-compose up -d
-```
-
-This will:
-- Build and start Airflow containers (webserver, scheduler, Postgres)
-- Install the required Python libraries
-
-If you modify dependencies, update the following line in `docker-compose.yaml`:
-
-```yaml
 _PIP_ADDITIONAL_REQUIREMENTS: ${_PIP_ADDITIONAL_REQUIREMENTS:- pandas scikit-learn kneed }
 ```
 
-Then rebuild the containers:
+## Quick Start
 
+1. **Start Airflow**
 ```bash
-docker-compose down
-docker-compose up --build -d
+   docker-compose up
 ```
 
----
+2. **Access UI**
+   - Navigate to `http://localhost:8080`
+   - Default credentials: admin/admin
+   - Enable and trigger the `wine_classification` DAG
 
-### Access the Airflow UI
+## Pipeline Flow
+```
+load_data
+    ↓
+preprocess_data
+    ↓
+    ├─→ train_logistic ─┐
+    ├─→ train_tree ─────┼─→ evaluate_models → predict
+    └─→ train_knn ──────┘
+```
 
-Open [http://localhost:8080](http://localhost:8080) in your browser.  
-- **Username:** airflow2  
-- **Password:** airflow2 
+### Tasks
 
----
+1. **load_data**: Loads Wine dataset and splits into train/test (70/30)
+2. **preprocess_data**: Applies StandardScaler to features
+3. **train_logistic**: Trains Logistic Regression
+4. **train_tree**: Trains Decision Tree (max_depth=5)
+5. **train_knn**: Trains K-Nearest Neighbors (k=5)
+6. **evaluate_models**: Compares accuracies and selects best model
+7. **predict**: Makes predictions on test data using best model
 
-## DAG Overview
+## Output
 
-**DAG ID:** `Multi_Model_Clustering`
+After successful execution:
 
-### Tasks:
+**`results/results.json`**
+```json
+{
+  "best_model": "Logistic",
+  "accuracy": 0.9815,
+  "all_results": [
+    {"model": "Logistic", "accuracy": 0.9815, "path": "..."},
+    {"model": "DecisionTree", "accuracy": 0.9259, "path": "..."},
+    {"model": "KNN", "accuracy": 0.9630, "path": "..."}
+  ]
+}
+```
 
-| Task ID | Description |
-|----------|--------------|
-| `load_data_task` | Loads data from `data/file.csv` |
-| `data_preprocessing_task` | Cleans data, scales features using MinMaxScaler |
-| `kmeans_model_task` | Trains a KMeans clustering model |
-| `dbscan_model_task` | Trains a DBSCAN clustering model |
-| `agglo_model_task` | Trains an Agglomerative Clustering model |
-| `evaluate_models_task` | Compares models via S
+**`model/`** directory contains:
+- `logistic.pkl`
+- `tree.pkl`
+- `knn.pkl`
 
-![Description of image](screenshots/s1.png)
-![Description of image](screenshots/s2.png)
+### Add More Models
+
+1. Add training function in `lab.py`:
+```python
+   def train_svm(data):
+       from sklearn.svm import SVC
+       data_dict = pickle.loads(data)
+       model = SVC(random_state=42)
+```
+
+2. Add task in `airflow.py`:
+```python
+   svm_task = PythonOperator(
+       task_id="train_svm",
+       python_callable=train_svm,
+       op_args=[preprocess_task.output],
+   )
+```
+
+3. Update dependencies:
+```python
+   preprocess_task >> [logistic_task, tree_task, knn_task, svm_task]
+   [logistic_task, tree_task, knn_task, svm_task] >> evaluate_task
+```
+
+### Modify Hyperparameters
+
+Edit model parameters in training functions:
+```python
+# In train_logistic()
+model = LogisticRegression(random_state=42, max_iter=200)
+
+model = LogisticRegression(random_state=42, max_iter=500, C=0.1)
+
+# In train_tree()
+model = DecisionTreeClassifier(random_state=42, max_depth=5)
+
+model = DecisionTreeClassifier(random_state=42, max_depth=10, min_samples_split=5)
+
+# In train_knn()
+model = KNeighborsClassifier(n_neighbors=5)
+
+model = KNeighborsClassifier(n_neighbors=3, weights='distance')
+```
+
+## Monitoring
+
+- **Airflow UI**: Monitor task execution, logs, and XCom data
+- **Task Logs**: Click on task -> View Logs to see print statements
+- **Results File**: Check `results/results.json` for model comparison
+
